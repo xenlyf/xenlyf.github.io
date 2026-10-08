@@ -114,3 +114,12 @@ window.addEventListener("DOMContentLoaded", () => {
     if (event.key === "Escape" && modal.classList.contains("is-open")) closeModal();
   });
 });
+
+/* Keep displayed years current automatically */
+document.addEventListener("DOMContentLoaded", () => {
+  const year = new Date().getFullYear();
+  const currentYear = document.getElementById("currentYear");
+  const footerYear = document.getElementById("footerYear");
+  if (currentYear) currentYear.textContent = year;
+  if (footerYear) footerYear.textContent = year;
+});
