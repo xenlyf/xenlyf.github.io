@@ -503,3 +503,24 @@ body.modal-open { overflow: hidden; }
   background: rgba(185,140,255,.14);
   color: inherit;
 }
+
+/* Keep popup contact icons visually consistent with the contact list icons */
+.contact-modal-icon {
+  font-family: inherit;
+  font-weight: inherit;
+}
+
+/* Popup uses the exact same SVG icon treatment as the Find Me links */
+.contact-modal-icon svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.contact-modal-icon svg .fill {
+  fill: currentColor;
+  stroke: none;
+}

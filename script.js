@@ -36,25 +36,29 @@ window.addEventListener("DOMContentLoaded", () => {
   const copy = document.getElementById("contactModalCopy");
   let currentValue = "";
 
+  const EMAIL_ICON = '<svg viewBox="0 0 24 24"><path d="M3.5 6.5h17v11h-17z"/><path d="m4 7 8 6 8-6"/></svg>';
+  const INSTAGRAM_ICON = '<svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.8" r="1" class="fill"/></svg>';
+  const TELEGRAM_ICON = '<svg viewBox="0 0 24 24"><path d="M21 4 3.8 10.8c-.9.35-.88 1.2-.16 1.43l4.4 1.38 1.68 5.24c.22.68.11.95.82.95.55 0 .79-.25 1.08-.54l2.14-2.08 4.45 3.28c.82.45 1.42.22 1.63-.76L22.1 5.2C22.42 3.96 21.7 3.5 21 4Z"/><path d="m8.2 13.55 9.65-6.08-7.62 7.02-.28 3.32"/></svg>';
+
   const contacts = {
     email: {
       title: "Email",
       detail: "xenlyf@duck.com",
-      icon: "✉",
+      icon: EMAIL_ICON,
       href: "mailto:xenlyf@duck.com",
       external: false
     },
     instagram: {
       title: "Instagram",
       detail: "@xenlyf.ig",
-      icon: "◎",
+      icon: INSTAGRAM_ICON,
       href: "https://www.instagram.com/xenlyf.ig",
       external: true
     },
     telegram: {
       title: "Telegram",
       detail: "@xenlyf",
-      icon: "↗",
+      icon: TELEGRAM_ICON,
       href: "https://t.me/xenlyf",
       external: true
     }
@@ -65,7 +69,7 @@ window.addEventListener("DOMContentLoaded", () => {
     if (!item) return;
     title.textContent = item.title;
     detail.textContent = item.detail;
-    icon.textContent = item.icon;
+    icon.innerHTML = item.icon;
     proceed.href = item.href;
     proceed.target = item.external ? "_blank" : "_self";
     proceed.rel = item.external ? "noopener" : "";
