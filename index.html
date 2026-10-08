@@ -65,19 +65,19 @@
         <div class="contact-card">
           <p>If you feel like saying hi, I’m around.</p>
           <div class="contact-links">
-            <a class="contact-link" href="mailto:xenlyf@duck.com" aria-label="Email X E N">
+            <a class="contact-link" href="mailto:xenlyf@duck.com" data-contact="email" aria-label="Email X E N">
               <span class="contact-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24"><path d="M3.5 6.5h17v11h-17z"/><path d="m4 7 8 6 8-6"/></svg>
               </span>
               <span>Email</span><span class="contact-arrow">↗</span>
             </a>
-            <a class="contact-link" href="https://www.instagram.com/xenlyf.ig" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+            <a class="contact-link" href="https://www.instagram.com/xenlyf.ig" data-contact="instagram" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <span class="contact-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.8" r="1" class="fill"/></svg>
               </span>
               <span>Instagram</span><span class="contact-arrow">↗</span>
             </a>
-            <a class="contact-link" href="https://t.me/xenlyf" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+            <a class="contact-link" href="https://t.me/xenlyf" data-contact="telegram" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
               <span class="contact-icon" aria-hidden="true">
                 <svg viewBox="0 0 24 24"><path d="M21 4 3.8 10.8c-.9.35-.88 1.2-.16 1.43l4.4 1.38 1.68 5.24c.22.68.11.95.82.95.55 0 .79-.25 1.08-.54l2.14-2.08 4.45 3.28c.82.45 1.42.22 1.63-.76L22.1 5.2C22.42 3.96 21.7 3.5 21 4Z"/><path d="m8.2 13.55 9.65-6.08-7.62 7.02-.28 3.32"/></svg>
               </span>
@@ -100,6 +100,22 @@
     <span>Made with &lt;3 by XEN</span>
     <a href="#home">Back to top ↑</a>
   </footer>
+  <!-- Contact detail popup -->
+<div class="contact-modal" id="contactModal" aria-hidden="true">
+  <div class="contact-modal-backdrop" data-close-contact></div>
+  <div class="contact-modal-card" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+    <button class="contact-modal-close" type="button" aria-label="Close" data-close-contact>×</button>
+    <div class="contact-modal-icon" id="contactModalIcon">✦</div>
+    <div class="contact-modal-kicker">CONTACT</div>
+    <h3 id="contactModalTitle">Email</h3>
+    <p id="contactModalDetail">xenlyf@duck.com</p>
+    <div class="contact-modal-actions">
+      <button class="contact-modal-copy" type="button" id="contactModalCopy">Copy</button>
+      <a class="contact-modal-proceed" id="contactModalProceed" href="#" target="_blank" rel="noopener">Proceed</a>
+    </div>
+  </div>
+</div>
+
   <script src="script.js"></script>
 </body>
 </html>

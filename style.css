@@ -379,3 +379,127 @@ a[href="#about"].button span { display:none !important; }
 
 /* Home CTA row */
 .hero-actions { flex-wrap: wrap; }
+
+/* Contact popup */
+body.modal-open { overflow: hidden; }
+
+.contact-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease, visibility .2s ease;
+}
+
+.contact-modal.is-open {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.contact-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 2, 8, .68);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.contact-modal-card {
+  position: relative;
+  width: min(420px, 100%);
+  padding: 30px;
+  border: 1px solid rgba(201, 163, 255, .24);
+  border-radius: 26px;
+  background: rgba(20, 13, 31, .82);
+  box-shadow: 0 24px 80px rgba(0,0,0,.45), inset 0 1px rgba(255,255,255,.07);
+  text-align: center;
+  transform: translateY(10px) scale(.98);
+  transition: transform .22s ease;
+}
+
+.contact-modal.is-open .contact-modal-card {
+  transform: translateY(0) scale(1);
+}
+
+.contact-modal-close {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,.06);
+  color: inherit;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.contact-modal-icon {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 18px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(201, 163, 255, .25);
+  border-radius: 16px;
+  background: rgba(185, 140, 255, .10);
+  color: #c9a3ff;
+  font-size: 22px;
+}
+
+.contact-modal-kicker {
+  margin-bottom: 7px;
+  font-size: 11px;
+  letter-spacing: .18em;
+  opacity: .55;
+}
+
+.contact-modal-card h3 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.contact-modal-card p {
+  margin: 9px 0 24px;
+  opacity: .72;
+  word-break: break-word;
+}
+
+.contact-modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.contact-modal-actions button,
+.contact-modal-actions a {
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font: inherit;
+  cursor: pointer;
+}
+
+.contact-modal-copy {
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.06);
+  color: inherit;
+}
+
+.contact-modal-proceed {
+  border: 1px solid rgba(201,163,255,.30);
+  background: rgba(185,140,255,.14);
+  color: inherit;
+}
