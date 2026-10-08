@@ -14,4 +14,4 @@ A modern dark personal-profile website designed for GitHub Pages.
 4. Under the publishing source, choose the `main` branch and `/ (root)`.
 5. Save. Your site will appear at `https://<your-github-username>.github.io/`.
 
-Before publishing, replace the placeholder email and social links in `index.html`.
+Personal details are configured in `index.html`.
