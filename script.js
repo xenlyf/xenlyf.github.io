@@ -50,9 +50,9 @@ window.addEventListener("DOMContentLoaded", () => {
     },
     instagram: {
       title: "Instagram",
-      detail: "@xenlyf.ig",
+      detail: "@xen.lyf",
       icon: INSTAGRAM_ICON,
-      href: "https://www.instagram.com/xenlyf.ig",
+      href: "https://www.instagram.com/xen.lyf",
       external: true
     },
     telegram: {
