@@ -8,22 +8,6 @@ window.addEventListener('scroll', () => {
   lastY = y;
 }, {passive:true});
 
-// Bottom tab navigation: highlight the section currently in view.
-const tabs = [...document.querySelectorAll('.tab[data-section]')];
-const sections = tabs
-  .map(tab => document.getElementById(tab.dataset.section))
-  .filter(Boolean);
-
-const tabObserver = new IntersectionObserver((entries) => {
-  const visible = entries
-    .filter(entry => entry.isIntersecting)
-    .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
-  if (!visible) return;
-  tabs.forEach(tab => tab.classList.toggle('active', tab.dataset.section === visible.target.id));
-}, {threshold:[0.2,0.45,0.7], rootMargin:'-15% 0px -35% 0px'});
-
-sections.forEach(section => tabObserver.observe(section));
-
 /* Contact confirmation popup */
 window.addEventListener("DOMContentLoaded", () => {
   const modal = document.getElementById("contactModal");
@@ -50,9 +34,9 @@ window.addEventListener("DOMContentLoaded", () => {
     },
     instagram: {
       title: "Instagram",
-      detail: "@xen.lyf",
+      detail: "@xenlyf.ig",
       icon: INSTAGRAM_ICON,
-      href: "https://www.instagram.com/xen.lyf",
+      href: "https://www.instagram.com/xenlyf.ig",
       external: true
     },
     telegram: {
@@ -115,11 +99,65 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-/* Keep displayed years current automatically */
-document.addEventListener("DOMContentLoaded", () => {
-  const year = new Date().getFullYear();
-  const currentYear = document.getElementById("currentYear");
-  const footerYear = document.getElementById("footerYear");
-  if (currentYear) currentYear.textContent = year;
-  if (footerYear) footerYear.textContent = year;
-});
+
+/* Bottom tabs: smooth, history-neutral navigation */
+(() => {
+  const tabs = [...document.querySelectorAll('.tab[data-section]')];
+  const sections = tabs.map(t => document.getElementById(t.dataset.section)).filter(Boolean);
+  if (!tabs.length || !sections.length) return;
+
+  let navigating = false;
+  let frame = 0;
+
+  const setActive = (id) => {
+    tabs.forEach(tab => tab.classList.toggle('active', tab.dataset.section === id));
+  };
+
+  const ease = t => t < .5 ? 2*t*t : 1 - Math.pow(-2*t + 2, 2)/2;
+
+  const goTo = (target) => {
+    const nav = document.querySelector('.nav');
+    const offset = nav ? nav.getBoundingClientRect().height + 16 : 16;
+    const start = window.scrollY;
+    const end = Math.max(0, start + target.getBoundingClientRect().top - offset);
+    const distance = Math.abs(end - start);
+    const duration = Math.min(700, Math.max(360, distance * 0.45));
+    const started = performance.now();
+
+    cancelAnimationFrame(frame);
+    navigating = true;
+    setActive(target.id);
+
+    const step = now => {
+      const progress = Math.min(1, (now - started) / duration);
+      window.scrollTo(0, start + (end - start) * ease(progress));
+      if (progress < 1) {
+        frame = requestAnimationFrame(step);
+      } else {
+        navigating = false;
+        setActive(target.id);
+      }
+    };
+    frame = requestAnimationFrame(step);
+  };
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', event => {
+      event.preventDefault();
+      const target = document.getElementById(tab.dataset.section);
+      if (target) goTo(target);
+    });
+  });
+
+  // One observer only; it never competes with an in-progress tab animation.
+  const observer = new IntersectionObserver(entries => {
+    if (navigating) return;
+    const visible = entries
+      .filter(e => e.isIntersecting)
+      .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
+    if (visible) setActive(visible.target.id);
+  }, { threshold: [0.35, 0.55, 0.75], rootMargin: '-15% 0px -45% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+  setActive(sections[0].id);
+})();
