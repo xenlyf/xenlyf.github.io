@@ -148,7 +148,14 @@ window.addEventListener("DOMContentLoaded", () => {
       if (target) goTo(target);
     });
   });
+document.querySelectorAll('.home-link').forEach(link => {
+  link.addEventListener('click', event => {
+    event.preventDefault();
 
+    const target = document.getElementById(link.dataset.section);
+    if (target) goTo(target);
+  });
+});
   // One observer only; it never competes with an in-progress tab animation.
   const observer = new IntersectionObserver(entries => {
     if (navigating) return;
