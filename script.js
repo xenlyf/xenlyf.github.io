@@ -175,22 +175,32 @@ window.addEventListener("DOMContentLoaded", () => {
     const greetings = ["Hello.", "Hola.", "Bonjour.", "नमस्ते.", "こんにちは.", "Ciao.", "Olá.", "مرحباً.", "Hallo."];
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const interval = reducedMotion ? 120 : 230;
+    const firstGreetingHold = reducedMotion ? 220 : 330; // first greeting gets 100ms extra
     let index = 0;
     word.textContent = greetings[0];
 
     if (!reducedMotion) {
-      const ticker = window.setInterval(() => {
-        index += 1;
-        if (index >= greetings.length) {
-          window.clearInterval(ticker);
-          window.setTimeout(() => intro.classList.add("is-hidden"), 220);
-          return;
-        }
+      // Hold the first greeting slightly longer, then keep the original rhythm.
+      window.setTimeout(() => {
+        index = 1;
         word.textContent = greetings[index];
         word.style.animation = "none";
         void word.offsetWidth;
         word.style.animation = "";
-      }, interval);
+
+        const ticker = window.setInterval(() => {
+          index += 1;
+          if (index >= greetings.length) {
+            window.clearInterval(ticker);
+            window.setTimeout(() => intro.classList.add("is-hidden"), 220);
+            return;
+          }
+          word.textContent = greetings[index];
+          word.style.animation = "none";
+          void word.offsetWidth;
+          word.style.animation = "";
+        }, interval);
+      }, firstGreetingHold);
     } else {
       window.setTimeout(() => intro.classList.add("is-hidden"), 900);
     }
