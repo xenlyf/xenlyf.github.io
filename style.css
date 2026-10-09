@@ -813,3 +813,17 @@ body[data-theme="light"] .nav.is-scrolled {
   width: 19px;
   height: 19px;
 }
+
+
+/* Mobile-friendly theme toggle hit target */
+.theme-toggle {
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.nav-tools {
+  position: relative;
+  z-index: 6;
+}

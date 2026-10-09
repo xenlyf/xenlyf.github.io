@@ -214,11 +214,12 @@ window.addEventListener("DOMContentLoaded", () => {
   applyTheme(savedTheme === "light" ? "light" : "dark");
 
   if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
+    themeToggle.addEventListener("click", (event) => {
+      event.preventDefault();
       const next = document.body.dataset.theme === "light" ? "dark" : "light";
       applyTheme(next);
       try { localStorage.setItem("xenlyf-theme", next); } catch (_) {}
-    });
+    }, { passive: false });
   }
 
   /* Live clock in India Standard Time (Asia/Kolkata). */
