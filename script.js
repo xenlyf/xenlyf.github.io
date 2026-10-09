@@ -153,17 +153,31 @@ document.querySelectorAll('.home-link').forEach(link => {
     if (target) goTo(target);
   });
 });
-  // One observer only; it never competes with an in-progress tab animation.
-  const observer = new IntersectionObserver(entries => {
+  // Scroll-spy based on the section heading line, rather than intersection ratios.
+  // This stays reliable for short sections and on mobile, where Lately can be
+  // too small to satisfy an IntersectionObserver threshold consistently.
+  const updateActiveFromScroll = () => {
     if (navigating) return;
-    const visible = entries
-      .filter(e => e.isIntersecting)
-      .sort((a,b) => b.intersectionRatio - a.intersectionRatio)[0];
-    if (visible) setActive(visible.target.id);
-  }, { threshold: [0.35, 0.55, 0.75], rootMargin: '-15% 0px -45% 0px' });
 
-  sections.forEach(s => observer.observe(s));
-  setActive(sections[0].id);
+    const atBottom = window.innerHeight + window.scrollY >=
+      document.documentElement.scrollHeight - 4;
+    if (atBottom) {
+      setActive(sections[sections.length - 1].id);
+      return;
+    }
+
+    const referenceLine = Math.min(window.innerHeight * 0.38, 280);
+    let current = sections[0];
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= referenceLine) current = section;
+      else break;
+    }
+    setActive(current.id);
+  };
+
+  window.addEventListener('scroll', updateActiveFromScroll, { passive: true });
+  window.addEventListener('resize', updateActiveFromScroll);
+  updateActiveFromScroll();
 })();
 
 
@@ -175,7 +189,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const greetings = ["Hello.", "Hola.", "Bonjour.", "नमस्ते.", "こんにちは.", "Ciao.", "Olá.", "مرحباً.", "Hallo."];
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const interval = reducedMotion ? 120 : 230;
-    const firstGreetingHold = reducedMotion ? 220 : 330; // first greeting gets 100ms extra
+    const firstGreetingHold = reducedMotion ? 220 : 330; // same timing on desktop and mobile
     let index = 0;
     word.textContent = greetings[0];
 
