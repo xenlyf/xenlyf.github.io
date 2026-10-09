@@ -874,3 +874,102 @@ body[data-theme="light"] .contact-modal-close {
   .nav-tools, .theme-toggle { pointer-events: auto; }
   .theme-toggle { min-width: 44px; min-height: 44px; }
 }
+
+
+/* Browser-specific theme rendering guard (including forced darkening in mobile browsers) */
+html[data-theme="light"],
+html[data-theme="light"] body {
+  color-scheme: only light;
+}
+html[data-theme="dark"],
+html[data-theme="dark"] body {
+  color-scheme: only dark;
+}
+html[data-theme="light"] body {
+  background-color: #f6f2fb;
+  color: #21182b;
+}
+html[data-theme="light"] body .contact-card,
+html[data-theme="light"] body .contact-modal-card,
+html[data-theme="light"] body .contact-modal-copy {
+  background-color: #fff;
+  color: #21182b;
+}
+html[data-theme="light"] body .tab-dock {
+  background-color: rgba(255,255,255,.92);
+  border-color: rgba(93,62,130,.18);
+}
+html[data-theme="light"] body .tab {
+  color: #6e6479;
+}
+html[data-theme="light"] body .tab.active {
+  color: #2c1d3a;
+}
+html[data-theme="light"] body .nav {
+  background-color: rgba(255,255,255,.92);
+}
+html[data-theme="light"] body .contact-link,
+html[data-theme="light"] body .button.ghost {
+  color: #21182b;
+  border-color: #e1d8eb;
+}
+
+
+/* Robust theme variables shared across browsers */
+:root[data-theme="light"],
+html[data-theme="light"],
+body[data-theme="light"] {
+  --bg: #f6f2fb;
+  --bg-2: #eee7f7;
+  --surface: #ffffff;
+  --surface-2: #f8f5fc;
+  --text: #21182b;
+  --muted: #6e6479;
+  --border: rgba(68, 43, 91, .16);
+  --glass: rgba(255, 255, 255, .82);
+  --glass-border: rgba(68, 43, 91, .16);
+}
+html[data-theme="light"] body,
+body[data-theme="light"] {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+}
+html[data-theme="light"] body::before,
+html[data-theme="light"] body::after {
+  pointer-events: none;
+}
+html[data-theme="light"] body main,
+html[data-theme="light"] body section,
+html[data-theme="light"] body footer {
+  color: var(--text);
+}
+html[data-theme="light"] body .hero,
+html[data-theme="light"] body .section,
+html[data-theme="light"] body .content-section {
+  color: var(--text);
+}
+html[data-theme="light"] body .card,
+html[data-theme="light"] body .service-card,
+html[data-theme="light"] body .project-card,
+html[data-theme="light"] body .contact-card,
+html[data-theme="light"] body .contact-modal-card {
+  background-color: #fff;
+  color: #21182b;
+  border-color: rgba(68, 43, 91, .16);
+}
+html[data-theme="light"] body .nav,
+html[data-theme="light"] body .nav.is-scrolled,
+html[data-theme="light"] body .tab-dock {
+  background: rgba(255,255,255,.94) !important;
+  color: #21182b;
+}
+html[data-theme="light"] body .nav a,
+html[data-theme="light"] body footer a,
+html[data-theme="light"] body .tab {
+  color: #6e6479;
+}
+html[data-theme="light"] body .nav a:hover,
+html[data-theme="light"] body footer a:hover,
+html[data-theme="light"] body .tab.active {
+  color: #21182b;
+}

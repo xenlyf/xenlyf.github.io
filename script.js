@@ -273,8 +273,12 @@ window.addEventListener("DOMContentLoaded", () => {
   const themeToggle = document.getElementById("themeToggle");
   const themeMeta = document.querySelector('meta[name="theme-color"]');
   const applyTheme = (theme) => {
-    document.body.dataset.theme = theme;
-    const light = theme === "light";
+    const normalizedTheme = theme === "light" ? "light" : "dark";
+    document.documentElement.dataset.theme = normalizedTheme;
+    document.body.dataset.theme = normalizedTheme;
+    document.documentElement.style.colorScheme = normalizedTheme === "light" ? "only light" : "only dark";
+    document.body.style.colorScheme = normalizedTheme === "light" ? "only light" : "only dark";
+    const light = normalizedTheme === "light";
     if (themeToggle) {
       themeToggle.setAttribute("aria-label", light ? "Switch to dark theme" : "Switch to light theme");
       themeToggle.setAttribute("title", light ? "Switch to dark theme" : "Switch to light theme");
