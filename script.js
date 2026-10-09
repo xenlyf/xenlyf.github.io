@@ -181,6 +181,55 @@ document.querySelectorAll('.home-link').forEach(link => {
 })();
 
 
+
+/* Smooth, consistent Back to top behavior, including mobile browsers */
+window.addEventListener("DOMContentLoaded", () => {
+  const backToTop = document.querySelector('footer a[href="#home"]');
+  if (!backToTop) return;
+
+  backToTop.addEventListener("click", event => {
+    event.preventDefault();
+
+    const reducedMotion = window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (reducedMotion) {
+      window.scrollTo({ top: 0, behavior: "auto" });
+      history.replaceState(null, "", "#home");
+      return;
+    }
+
+    const start = window.scrollY || document.documentElement.scrollTop || 0;
+    if (start <= 1) {
+      window.scrollTo(0, 0);
+      history.replaceState(null, "", "#home");
+      return;
+    }
+
+    const duration = Math.min(1400, Math.max(650, start * 0.35));
+    const started = performance.now();
+    const easeInOutCubic = t =>
+      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+    let frameId = 0;
+    const step = now => {
+      const progress = Math.min(1, (now - started) / duration);
+      const nextY = Math.round(start * (1 - easeInOutCubic(progress)));
+      window.scrollTo(0, nextY);
+
+      if (progress < 1) {
+        frameId = requestAnimationFrame(step);
+      } else {
+        cancelAnimationFrame(frameId);
+        window.scrollTo(0, 0);
+        history.replaceState(null, "", "#home");
+      }
+    };
+
+    frameId = requestAnimationFrame(step);
+  }, { passive: false });
+});
+
 /* Quick multilingual hello intro */
 window.addEventListener("DOMContentLoaded", () => {
   const intro = document.getElementById("greetingIntro");
