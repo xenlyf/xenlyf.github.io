@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=final2">
+  <link rel="stylesheet" href="style.css?v=hello-theme-clock1">
 </head>
 <body>
   <div class="noise"></div>
@@ -18,7 +18,22 @@
       <img class="profile-avatar" src="profile.jpg" alt="X E N profile picture">
       X E N
     </a>
+    <div class="nav-tools">
+      <div class="india-clock" aria-label="Current time in India">
+        <span class="clock-location">INDIA</span>
+        <time id="indiaTime" aria-live="off">--:--:--</time>
+        
+      </div>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light theme" title="Switch theme">
+        <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+        <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 8.7 8.7 0 1 0 20.5 14.2Z"/></svg>
+      </button>
+    </div>
   </header>
+
+  <div class="greeting-intro" id="greetingIntro" aria-hidden="true">
+    <div class="greeting-word" id="greetingWord">Hello.</div>
+  </div>
 
   <main>
     <section id="home" class="hero">
@@ -48,6 +63,40 @@
             <div><span>03</span><strong>Exploring</strong><small>Seeing where it leads</small></div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section id="lately" class="section lately">
+      <div class="lately-heading">
+        <p class="kicker">A little update</p>
+        <h2>Lately<span>.</span></h2>
+        <p class="lately-intro">A little about what I’m into lately.</p>
+      </div>
+      <div class="lately-grid">
+        <article class="lately-card">
+          <div class="lately-card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21z"/><path d="M4 5.5v13A2.5 2.5 0 0 1 6.5 16H20"/><path d="M8 7h8"/></svg>
+          </div>
+          <p class="lately-label">Learning</p>
+          <h3>Building strong foundations.</h3>
+          <p class="lately-description">Strengthening my fundamentals for what's ahead.</p>
+        </article>
+        <article class="lately-card">
+          <div class="lately-card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5 8.8 8.8 0 0 1-4-.95L3 21l1.95-5.5A8.5 8.5 0 1 1 21 11.5Z"/><path d="M8 10h8M8 14h5"/></svg>
+          </div>
+          <p class="lately-label">Enjoying</p>
+          <h3>Learning English.</h3>
+          <p class="lately-description">Finding new ways to express myself and understand the world.</p>
+        </article>
+        <article class="lately-card">
+          <div class="lately-card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4M8 9l2.5 2.5L15 7"/><path d="M12 7h3v3"/></svg>
+          </div>
+          <p class="lately-label">Focusing on</p>
+          <h3>Exploring technology.</h3>
+          <p class="lately-description">Discovering how computers work and what I can create with them.</p>
+        </article>
       </div>
     </section>
 
@@ -91,6 +140,7 @@
   <nav class="tab-dock" aria-label="Section navigation">
     <a class="tab active" href="#home" data-section="home"><span class="tab-icon">⌂</span><span>Home</span></a>
     <a class="tab" href="#about" data-section="about"><span class="tab-icon">✦</span><span>About</span></a>
+    <a class="tab" href="#lately" data-section="lately"><span class="tab-icon">✧</span><span>Lately</span></a>
     <a class="tab" href="#contact" data-section="contact"><span class="tab-icon">◎</span><span>Find me</span></a>
   </nav>
 
@@ -115,6 +165,6 @@
   </div>
 </div>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=hello-theme-clock1"></script>
 </body>
 </html>

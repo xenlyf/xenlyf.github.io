@@ -1,11 +1,8 @@
 // Small interaction layer — no framework required.
+// Keep the navbar's colors in CSS so theme changes stay consistent.
 const header = document.querySelector('.nav');
-let lastY = 0;
 window.addEventListener('scroll', () => {
-  const y = window.scrollY;
-  header.style.background = y > 20 ? 'rgba(9,9,11,.78)' : 'transparent';
-  header.style.backdropFilter = y > 20 ? 'blur(14px)' : 'none';
-  lastY = y;
+  if (header) header.classList.toggle('is-scrolled', window.scrollY > 20);
 }, {passive:true});
 
 /* Contact confirmation popup */
@@ -57,7 +54,7 @@ window.addEventListener("DOMContentLoaded", () => {
     proceed.href = item.href;
     proceed.target = item.external ? "_blank" : "_self";
     proceed.rel = item.external ? "noopener" : "";
-    proceed.textContent = item.external ? "Open" : "Open email";
+    proceed.textContent = "Open";
     copy.style.display = item.external ? "inline-flex" : "inline-flex";
     currentValue = item.detail;
     modal.classList.add("is-open");
@@ -168,3 +165,74 @@ document.querySelectorAll('.home-link').forEach(link => {
   sections.forEach(s => observer.observe(s));
   setActive(sections[0].id);
 })();
+
+
+/* Quick multilingual hello intro */
+window.addEventListener("DOMContentLoaded", () => {
+  const intro = document.getElementById("greetingIntro");
+  const word = document.getElementById("greetingWord");
+  if (intro && word) {
+    const greetings = ["Hello.", "Hola.", "Bonjour.", "नमस्ते.", "こんにちは.", "Ciao.", "Olá.", "مرحباً.", "Hallo."];
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const interval = reducedMotion ? 120 : 230;
+    let index = 0;
+    word.textContent = greetings[0];
+
+    if (!reducedMotion) {
+      const ticker = window.setInterval(() => {
+        index += 1;
+        if (index >= greetings.length) {
+          window.clearInterval(ticker);
+          window.setTimeout(() => intro.classList.add("is-hidden"), 220);
+          return;
+        }
+        word.textContent = greetings[index];
+        word.style.animation = "none";
+        void word.offsetWidth;
+        word.style.animation = "";
+      }, interval);
+    } else {
+      window.setTimeout(() => intro.classList.add("is-hidden"), 900);
+    }
+  }
+
+  /* Theme switch: remember the visitor's choice when storage is available. */
+  const themeToggle = document.getElementById("themeToggle");
+  const themeMeta = document.querySelector('meta[name="theme-color"]');
+  const applyTheme = (theme) => {
+    document.body.dataset.theme = theme;
+    const light = theme === "light";
+    if (themeToggle) {
+      themeToggle.setAttribute("aria-label", light ? "Switch to dark theme" : "Switch to light theme");
+      themeToggle.setAttribute("title", light ? "Switch to dark theme" : "Switch to light theme");
+    }
+    if (themeMeta) themeMeta.setAttribute("content", light ? "#f6f2fb" : "#09070d");
+  };
+
+  let savedTheme = "dark";
+  try { savedTheme = localStorage.getItem("xenlyf-theme") || "dark"; } catch (_) {}
+  applyTheme(savedTheme === "light" ? "light" : "dark");
+
+  if (themeToggle) {
+    themeToggle.addEventListener("click", () => {
+      const next = document.body.dataset.theme === "light" ? "dark" : "light";
+      applyTheme(next);
+      try { localStorage.setItem("xenlyf-theme", next); } catch (_) {}
+    });
+  }
+
+  /* Live clock in India Standard Time (Asia/Kolkata). */
+  const clock = document.getElementById("indiaTime");
+  const updateIndiaClock = () => {
+    if (!clock) return;
+    clock.textContent = new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Asia/Kolkata",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: true
+    }).format(new Date());
+  };
+  updateIndiaClock();
+  window.setInterval(updateIndiaClock, 1000);
+});
