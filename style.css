@@ -827,3 +827,50 @@ body[data-theme="light"] .nav.is-scrolled {
   position: relative;
   z-index: 6;
 }
+
+
+/* Mobile theme-switch consistency fixes */
+body[data-theme="light"] {
+  color-scheme: light;
+  color: var(--text);
+}
+body:not([data-theme="light"]) {
+  color-scheme: dark;
+}
+body[data-theme="light"] .nav,
+body[data-theme="light"] .nav.is-scrolled {
+  background: rgba(255,255,255,.88);
+  border-color: var(--glass-border);
+}
+body[data-theme="light"] .brand,
+body[data-theme="light"] .nav nav a,
+body[data-theme="light"] .nav-cta,
+body[data-theme="light"] footer,
+body[data-theme="light"] footer a,
+body[data-theme="light"] .scroll-note {
+  color: var(--muted);
+}
+body[data-theme="light"] .brand { color: var(--text); }
+body[data-theme="light"] .theme-toggle {
+  color: var(--text);
+  background: rgba(255,255,255,.94);
+  border-color: var(--glass-border);
+}
+body[data-theme="light"] .button.primary {
+  background: var(--accent);
+  color: #fff;
+}
+body[data-theme="light"] .contact-modal-close {
+  color: var(--text);
+}
+.theme-toggle {
+  -webkit-appearance: none;
+  appearance: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+@media (max-width: 800px) {
+  .nav { isolation: isolate; }
+  .nav-tools, .theme-toggle { pointer-events: auto; }
+  .theme-toggle { min-width: 44px; min-height: 44px; }
+}
