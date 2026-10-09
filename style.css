@@ -332,10 +332,9 @@ body:before{
   color:var(--text);
   text-decoration:none;
   background:rgba(255,255,255,.025);
-  transition:transform .22s ease,border-color .22s ease,background .22s ease;
+  transition:border-color .22s ease,background .22s ease;
 }
 .contact-link:hover{
-  transform:translateY(-2px);
   border-color:rgba(185,140,255,.35);
   background:rgba(185,140,255,.055);
 }
@@ -361,15 +360,7 @@ body:before{
   font-size:14px;
   color:var(--muted);
 }
-.contact-arrow{
-  margin-left:auto;
-  color:#8f829e;
-  font-size:14px;
-  transition:color .2s ease,transform .2s ease;
-}
-.contact-link:hover .contact-arrow{color:var(--accent);transform:translate(2px,-2px)}
-
-@media(max-width:800px){
+.contact-link:hover @media(max-width:800px){
   .contact-links{margin-top:25px}
 }
 
