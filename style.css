@@ -964,3 +964,118 @@ html[data-theme="light"] body footer a:hover,
 html[data-theme="light"] body .tab.active {
   color: #21182b;
 }
+
+
+/* ===== Mobile navigation icon consistency + rendering performance ===== */
+.tab-icon {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  font-size: 0;
+  line-height: 0;
+}
+.tab-icon svg {
+  display: block;
+  width: 22px;
+  height: 22px;
+  flex: none;
+  overflow: visible;
+}
+.tab {
+  -webkit-tap-highlight-color: transparent;
+}
+.tab:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Large backdrop blurs are costly during pinch-zoom on many mobile GPUs.
+   Keep the glass look, but use smaller blur radii and avoid card-level blur. */
+@media (max-width: 800px) {
+  .nav,
+  .nav.is-scrolled {
+    -webkit-backdrop-filter: blur(10px) saturate(120%);
+    backdrop-filter: blur(10px) saturate(120%);
+  }
+  .tab-dock {
+    -webkit-backdrop-filter: blur(12px) saturate(125%);
+    backdrop-filter: blur(12px) saturate(125%);
+    background: rgba(18, 18, 22, .88);
+    contain: layout paint;
+  }
+  .lately-card {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: linear-gradient(145deg, rgba(31, 21, 44, .94), rgba(24, 16, 34, .90));
+  }
+  body::after {
+    height: 100px;
+    background: linear-gradient(to top, rgba(8, 8, 10, .52), transparent);
+  }
+  .tab {
+    transition: color .16s ease, background-color .16s ease;
+  }
+  .tab:hover,
+  .tab:active {
+    transform: none;
+  }
+  .tab-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+@media (max-width: 800px) and (prefers-reduced-motion: reduce) {
+  .tab { transition: none; }
+}
+
+/* Three equal-width bottom navigation items */
+.tab-dock { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+
+/* ===== Restore XEN's original purple / lavender theme ===== */
+:root {
+  --bg: #09070d;
+  --panel: #130f1b;
+  --text: #f4effa;
+  --muted: #b0a5bd;
+  --line: rgba(190, 160, 220, .16);
+  --accent: #b98cff;
+  --accent2: #e0c7ff;
+  --max: 1180px;
+}
+html[data-theme="dark"],
+body[data-theme="dark"],
+body:not([data-theme="light"]) {
+  --bg: #09070d;
+  --panel: #130f1b;
+  --text: #f4effa;
+  --muted: #b0a5bd;
+  --line: rgba(190, 160, 220, .16);
+  --accent: #b98cff;
+  --accent2: #e0c7ff;
+}
+body::before {
+  background:
+    radial-gradient(circle at 72% 12%, rgba(185,140,255,.10), transparent 28%),
+    radial-gradient(circle at 15% 65%, rgba(140,100,220,.08), transparent 26%);
+}
+.profile-avatar { border-color: rgba(185,140,255,.5); }
+.button.primary { color: #170f22; }
+.button.primary:hover { box-shadow: 0 10px 30px rgba(185,140,255,.18); }
+.orb-ring { border-color: rgba(185,140,255,.24); }
+.ring-b { border-color: rgba(224,199,255,.18); }
+@media (max-width: 800px) {
+  .tab-dock {
+    background: rgba(18, 12, 27, .90);
+    border-color: rgba(185,140,255,.20);
+  }
+}
+
+
+/* Bottom dock removed: retain comfortable mobile page clearance without reserved dock space. */
+@media (max-width: 800px) {
+  body { padding-bottom: max(18px, env(safe-area-inset-bottom)); }
+  footer { padding-bottom: calc(28px + env(safe-area-inset-bottom)); }
+}
