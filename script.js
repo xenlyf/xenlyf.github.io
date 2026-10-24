@@ -154,6 +154,8 @@ document.querySelectorAll('.home-link').forEach(link => {
   });
 });
   // Scroll-spy based on the section heading line, rather than intersection ratios.
+  // This stays reliable for short sections and on mobile, where Lately can be
+  // too small to satisfy an IntersectionObserver threshold consistently.
   const updateActiveFromScroll = () => {
     if (navigating) return;
 
