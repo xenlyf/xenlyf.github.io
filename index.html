@@ -197,7 +197,7 @@
     window.addEventListener("message", (event) => {
       if (event.origin !== "https://www.chess.com" || !event.data) return;
       const id = String(event.data.id);
-      if (!["15928778", "15928798", "15928846"].includes(id)) return;
+      if (id !== "15928846") return;
       const frameHeight = Number(event.data.frameHeight);
       const frame = document.getElementById(id);
       if (!frame || !Number.isFinite(frameHeight) || frameHeight < 100 || frameHeight > 3000) return;
