@@ -316,26 +316,26 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 
-/* Decorative snowfall: lightweight, non-interactive, and disabled for reduced motion. */
+/* Minimal monochrome cat outlines — subtle, lightweight, and non-interactive. */
 window.addEventListener("DOMContentLoaded", () => {
   if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  if (document.querySelector(".snowfall-layer")) return;
+  if (document.querySelector(".catfall-layer")) return;
   const layer = document.createElement("div");
-  layer.className = "snowfall-layer";
+  layer.className = "catfall-layer";
   layer.setAttribute("aria-hidden", "true");
-  const count = window.innerWidth < 600 ? 22 : 38;
-  const glyphs = ["❄", "❅", "❆", "·"];
+  const count = window.innerWidth < 600 ? 8 : 14;
+  const catOutline = '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M5.2 13.2 4.2 3.8 12.3 9.2 16 8.5 19.7 9.2 27.8 3.8 26.8 13.2 26.1 22.8 16 29 5.9 22.8Z"/><path d="M10 15.2 13.1 16.7 10 18.2 M22 15.2 18.9 16.7 22 18.2" stroke-width="1.35"/></svg>';
   for (let i = 0; i < count; i++) {
-    const flake = document.createElement("span");
-    flake.className = "snowflake";
-    flake.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
-    flake.style.setProperty("--x", `${Math.random() * 100}%`);
-    flake.style.setProperty("--size", `${6 + Math.random() * 12}px`);
-    flake.style.setProperty("--duration", `${10 + Math.random() * 16}s`);
-    flake.style.setProperty("--delay", `${-Math.random() * 24}s`);
-    flake.style.setProperty("--drift", `${-35 + Math.random() * 70}px`);
-    flake.style.setProperty("--opacity", `${0.22 + Math.random() * 0.48}`);
-    layer.appendChild(flake);
+    const cat = document.createElement("span");
+    cat.className = "falling-cat";
+    cat.innerHTML = catOutline;
+    cat.style.setProperty("--x", `${Math.random() * 100}%`);
+    cat.style.setProperty("--size", `${30 + Math.random() * 14}px`);
+    cat.style.setProperty("--duration", `${24 + Math.random() * 18}s`);
+    cat.style.setProperty("--delay", `${-Math.random() * 38}s`);
+    cat.style.setProperty("--drift", `${-14 + Math.random() * 28}px`);
+    cat.style.setProperty("--opacity", `${0.20 + Math.random() * 0.13}`);
+    layer.appendChild(cat);
   }
   document.body.appendChild(layer);
 });

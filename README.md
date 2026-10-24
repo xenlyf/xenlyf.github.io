@@ -1,6 +1,6 @@
 # Xenlyf
 
-A modern dark personal-profile website designed for GitHub Pages.
+A monochrome personal website for Xenlyf, blending curiosity, learning, technology, a black-cat animation, and an embedded Chess.com board.
 
 ## Files
 - `index.html` — page structure and editable profile copy
@@ -15,3 +15,6 @@ A modern dark personal-profile website designed for GitHub Pages.
 5. Save. Your site will appear at `https://<your-github-username>.github.io/`.
 
 Personal details are configured in `index.html`.
+
+## Chess embed
+The Chess section uses Chess.com embed ID `15928846`. Its height is adjusted from messages sent by `https://www.chess.com` only.

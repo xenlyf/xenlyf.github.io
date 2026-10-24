@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="A small corner of the internet by X E N.">
+  <meta name="description" content="Xenlyf — a monochrome corner for curiosity, learning, technology, and a little chess.">
   <meta name="theme-color" content="#09090b">
   <meta name="color-scheme" content="light dark">
-  <title>X E N</title>
+  <title>X E N — Xenlyf</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -100,8 +100,23 @@
       </div>
     </section>
 
+    <section id="chess" class="section chess-section">
+      <div class="chess-heading">
+        <p class="kicker">Take a moment</p>
+        <h2>Chess<span>.</span></h2>
+        <p class="chess-intro">A board for slowing down, spotting patterns, and thinking one move further. Take your time and explore the position below.</p>
+      </div>
+      <div class="chess-archive-grid">
+        <article class="chess-game-card chess-game-featured">
+          <div class="chess-game-heading"><span class="kicker">Featured Game</span><h3>Game Archive</h3><p>Replay the game and explore the moves.</p></div>
+          <div class="chess-embed-shell"><iframe id="15928846" title="Chess game 15928846" allowtransparency="true" frameborder="0" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://www.chess.com/emboard?id=15928846" style="width:100%;height:480px;border:none;display:block;">Open this game on <a href="https://www.chess.com/emboard?id=15928846" target="_blank" rel="noopener noreferrer">Chess.com</a>.</iframe></div>
+        </article>
+      </div>
+      <p class="chess-note">A little strategy, in the same monochrome spirit. Board embedded from Chess.com.</p>
+    </section>
+
     <section class="statement">
-      <p>“No rush.<br><span>I’m enjoying the process.</span>”</p>
+      <p>“Stay curious.<br><span>Think one move further.</span>”</p>
     </section>
 
     <section id="contact" class="section contact">
@@ -147,6 +162,9 @@
     <a class="tab" href="#lately" data-section="lately">
       <span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg></span><span>Lately</span>
     </a>
+    <a class="tab" href="#chess" data-section="chess">
+      <span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M9 21l1-4h4l1 4M8 17h8l-1-5 3-3-2-3-4 2-4-2-2 3 3 3z"/></svg></span><span>Chess</span>
+    </a>
     <a class="tab" href="#contact" data-section="contact">
       <span class="tab-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c.8-3.2 3.2-5 7-5s6.2 1.8 7 5"/></svg></span><span>Find me</span>
     </a>
@@ -154,7 +172,7 @@
 
   <footer>
     <span>© 2026 X E N</span>
-    <span>Made with 💜 by XEN</span>
+    <span>Made with ♡ by XEN</span>
     <a href="#home">Back to top ↑</a>
   </footer>
   <!-- Contact detail popup -->
@@ -173,6 +191,18 @@
   </div>
 </div>
 
-  <script src="script.js?v=mobile-icon-performance-fix1"></script>
+  <script src="script.js?v=clean-cat-face2"></script>
+  <script>
+    // Resize the Chess.com embed only in response to its own height messages.
+    window.addEventListener("message", (event) => {
+      if (event.origin !== "https://www.chess.com" || !event.data) return;
+      const id = String(event.data.id);
+      if (!["15928778", "15928798", "15928846"].includes(id)) return;
+      const frameHeight = Number(event.data.frameHeight);
+      const frame = document.getElementById(id);
+      if (!frame || !Number.isFinite(frameHeight) || frameHeight < 100 || frameHeight > 3000) return;
+      frame.style.height = `${frameHeight + 37}px`;
+    });
+  </script>
 </body>
 </html>
