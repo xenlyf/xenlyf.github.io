@@ -314,3 +314,28 @@ window.addEventListener("DOMContentLoaded", () => {
   updateIndiaClock();
   window.setInterval(updateIndiaClock, 1000);
 });
+
+
+/* Decorative snowfall: lightweight, non-interactive, and disabled for reduced motion. */
+window.addEventListener("DOMContentLoaded", () => {
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (document.querySelector(".snowfall-layer")) return;
+  const layer = document.createElement("div");
+  layer.className = "snowfall-layer";
+  layer.setAttribute("aria-hidden", "true");
+  const count = window.innerWidth < 600 ? 22 : 38;
+  const glyphs = ["❄", "❅", "❆", "·"];
+  for (let i = 0; i < count; i++) {
+    const flake = document.createElement("span");
+    flake.className = "snowflake";
+    flake.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+    flake.style.setProperty("--x", `${Math.random() * 100}%`);
+    flake.style.setProperty("--size", `${6 + Math.random() * 12}px`);
+    flake.style.setProperty("--duration", `${10 + Math.random() * 16}s`);
+    flake.style.setProperty("--delay", `${-Math.random() * 24}s`);
+    flake.style.setProperty("--drift", `${-35 + Math.random() * 70}px`);
+    flake.style.setProperty("--opacity", `${0.22 + Math.random() * 0.48}`);
+    layer.appendChild(flake);
+  }
+  document.body.appendChild(layer);
+});
