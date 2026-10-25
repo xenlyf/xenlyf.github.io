@@ -1076,58 +1076,12 @@ html[data-theme="light"] body .falling-cat { color: #18181b; }
 /* Remove the small active-navigation dot beneath bottom-bar icons */
 .tab.active::after { content: none !important; display: none !important; }
 
-/* Xenlyf-controlled chessboard */
-.custom-chess { width:100%; max-width:680px; margin:0 auto; padding:clamp(12px,3vw,24px); border:1px solid var(--glass-border); border-radius:18px; background:var(--surface, rgba(20,20,24,.7)); color:var(--text); }
-.custom-chess-top,.custom-chess-bottom { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:4px 2px 12px; }
-.custom-chess-bottom { padding:12px 2px 4px; }
-.chess-player { font-size:11px; font-weight:700; letter-spacing:.18em; }
-.chess-player-meta { color:var(--muted); font-size:12px; }
-.custom-board { display:grid; grid-template-columns:repeat(8,minmax(0,1fr)); aspect-ratio:1; overflow:hidden; border:1px solid var(--glass-border); border-radius:3px; }
-.custom-square { display:flex; align-items:center; justify-content:center; min-width:0; aspect-ratio:1; font-family:"Segoe UI Symbol","Noto Sans Symbols 2",serif; font-size:clamp(22px,6.5vw,clamp(24px,6vw,54px)); line-height:1; user-select:none; }
-.custom-square.light { background:#e8e7e4; color:#242428; }
-.custom-square.dark { background:#68686d; color:#fff; text-shadow:0 1px 1px rgba(0,0,0,.25); }
-.custom-chess-note { color:var(--muted); font-size:12px; line-height:1.6; margin:12px 0 8px; }
-.custom-chess-link { display:inline-block; font-size:12px; color:var(--text); text-underline-offset:4px; }
-
-/* Xenlyf custom PGN replay */
-.custom-game-info { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:16px; }
-.custom-game-info h4 { font-size:clamp(18px,4vw,25px); margin:6px 0 3px; }
-.custom-game-info h4 span { color:var(--muted); font-weight:400; }
-.custom-game-info p { margin:0; color:var(--muted); font-size:13px; }
-.custom-result { font-weight:700; font-size:20px; padding:9px 12px; border:1px solid var(--glass-border); border-radius:10px; white-space:nowrap; }
-.custom-board { display:grid; grid-template-columns:repeat(8,minmax(0,1fr)); aspect-ratio:1; overflow:hidden; border:1px solid var(--glass-border); border-radius:3px; }
-.custom-square { position:relative; display:flex; align-items:center; justify-content:center; min-width:0; aspect-ratio:1; font-family:"Segoe UI Symbol","Noto Sans Symbols 2",serif; font-size:clamp(25px,7vw,54px); line-height:1; user-select:none; }
-.custom-square.light { background:#e8e7e4; color:#202024; }
-.custom-square.dark { background:#66666c; color:#fff; }
-.custom-square.last-move { box-shadow:inset 0 0 0 999px rgba(210,190,95,.28); }
-.custom-square .coord { position:absolute; left:3px; top:2px; font:600 9px/1 sans-serif; opacity:.7; }
-.custom-chess-top,.custom-chess-bottom { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:9px 2px; }
-.custom-replay-controls { display:flex; gap:8px; justify-content:center; margin:12px 0; }
-.custom-replay-controls button { min-width:44px; min-height:40px; border:1px solid var(--glass-border); border-radius:9px; background:var(--surface,rgba(120,120,120,.12)); color:var(--text); font-size:24px; cursor:pointer; }
-.custom-replay-controls button:focus-visible,.custom-move-list button:focus-visible { outline:2px solid currentColor; outline-offset:2px; }
-.custom-move-list { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:4px; max-height:180px; overflow:auto; padding:8px; border:1px solid var(--glass-border); border-radius:10px; }
-.custom-move-list button { border:0; background:transparent; color:var(--text); border-radius:5px; padding:7px 4px; text-align:left; font-size:12px; cursor:pointer; }
-.custom-move-list button.active { background:var(--glass-border); font-weight:700; }
-.custom-chess-note { color:var(--muted); font-size:12px; line-height:1.6; margin:12px 0 8px; }
-@media(max-width:420px){.custom-move-list{grid-template-columns:repeat(2,minmax(0,1fr))}.custom-square .coord{font-size:8px}}
-
-/* Ensure replay pieces use theme-controlled colors rather than mixed Unicode glyph fills. */
-.custom-square.piece-white { color:#fff !important; -webkit-text-stroke: .7px #25252a; text-shadow: 0 1px 1px rgba(0,0,0,.4); }
-.custom-square.piece-black { color:#202024 !important; -webkit-text-stroke: .35px #f4f2ee; text-shadow:none; }
-.custom-square.light.piece-white { background:#e8e7e4; }
-.custom-square.dark.piece-white { background:#66666c; }
-.custom-square.light.piece-black { background:#e8e7e4; }
-.custom-square.dark.piece-black { background:#66666c; }
-
-/* Normalize Unicode glyph fills: filter only the piece, never its square. */
-.custom-square .piece-glyph { display:block; font-family:"DejaVu Sans","Segoe UI Symbol","Noto Sans Symbols 2",serif; line-height:1; }
-.custom-square .piece-glyph.piece-black { color:#202024; filter:brightness(0) saturate(100%); -webkit-text-stroke:0; text-shadow:none; }
-.custom-square .piece-glyph.piece-white { color:#fff; filter:brightness(0) invert(1); -webkit-text-stroke:0; text-shadow:0 1px 1px rgba(0,0,0,.25); }
-
-/* Filled, consistent SVG chess silhouettes */
-.custom-square .piece-svg { display:block; width:82%; height:82%; overflow:visible; }
-.custom-square .piece-svg.piece-black { color:#17171a; --piece-cut:#e8e7e4; }
-.custom-square .piece-svg.piece-white { color:#fff; --piece-cut:#66666c; }
-.custom-square .piece-svg g { fill:currentColor; stroke:currentColor; stroke-width:2; stroke-linejoin:round; }
-.custom-square .piece-svg .eye { fill:var(--piece-cut); stroke:none; }
-.custom-square .piece-svg path[fill="none"] { fill:none; }
+/* Responsive Chess.com embed: let the embed report its own height and keep the frame fluid. */
+.chess-embed-shell { width:100%; max-width:900px; min-width:0; margin:0 auto; overflow:hidden; border-radius:18px; }
+.chess-embed-shell iframe { display:block; width:100%; height:560px; min-height:420px; border:0; margin:0; padding:0; background:#fff; }
+@media (max-width: 600px) {
+  .chess-embed-shell { width:100%; max-width:100%; border-radius:12px; }
+  .chess-embed-shell iframe { width:100%; min-width:0; height: min(150vw, 680px); min-height:440px; }
+  .chess-archive-grid { grid-template-columns:minmax(0,1fr); }
+  .chess-game-card, .chess-game-featured { min-width:0; width:100%; }
+}

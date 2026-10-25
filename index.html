@@ -109,27 +109,10 @@
       <div class="chess-archive-grid">
         <article class="chess-game-card chess-game-featured">
           <div class="chess-game-heading"><span class="kicker">Featured Game</span><h3>Game Archive</h3><p>Replay the game and explore the moves.</p></div>
-          <div class="custom-chess" data-custom-chess>
-            <div class="custom-game-info">
-              <div><span class="kicker">LIVE CHESS · 31 JAN 2026</span><h4>Meowsarus <span>vs.</span> ChessSharkz</h4><p>0–1 · Sicilian Defense · ECO B21</p></div>
-              <div class="custom-result">0–1</div>
-            </div>
-            <div class="custom-chess-top"><span class="chess-player">BLACK · 3048</span><span class="chess-player-meta" data-turn-label>Starting position</span></div>
-            <div class="custom-board" data-chess-board role="img" aria-label="Interactive replay chessboard"></div>
-            <div class="custom-chess-bottom"><span class="chess-player">WHITE · 798</span><span class="chess-player-meta" data-ply-label>Move 0 / 27</span></div>
-            <div class="custom-replay-controls">
-              <button type="button" data-replay="start" aria-label="Go to start">|◀</button>
-              <button type="button" data-replay="prev" aria-label="Previous move">‹</button>
-              <button type="button" data-replay="next" aria-label="Next move">›</button>
-              <button type="button" data-replay="end" aria-label="Go to end">▶|</button>
-            </div>
-            <div class="custom-move-list" data-move-list aria-label="Game moves"></div>
-            <p class="custom-chess-note">Use the arrows to replay the complete game. Pieces and squares are styled by Xenlyf for clear contrast in both themes.</p>
-            <a class="custom-chess-link" href="https://www.chess.com/game/live/164197786305?username=meowsarus&move=0" target="_blank" rel="noopener noreferrer">Open original game on Chess.com ↗</a>
-          </div>
+          <div class="chess-embed-shell"><iframe id="chess-game-15928846" title="Chess.com game replay" allowtransparency="true" frameborder="0" loading="lazy" scrolling="no" src="https://www.chess.com/emboard?id=15928846" allowfullscreen></iframe></div>
         </article>
       </div>
-      <p class="chess-note">A little strategy, in the same monochrome spirit.</p>
+      <p class="chess-note">A little strategy, in the same monochrome spirit. Board embedded from Chess.com.</p>
     </section>
 
     <section class="statement">
@@ -221,5 +204,15 @@
       frame.style.height = `${frameHeight + 37}px`;
     });
   </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script><script src="script.js"></script>\n</body>
+<script>
+(function () {
+  window.addEventListener("message", function (event) {
+    var data = event && event.data;
+    if (!data || String(data.id) !== "15928846" || !Number.isFinite(Number(data.frameHeight))) return;
+    var frame = document.getElementById("chess-game-15928846");
+    if (frame) frame.style.height = (Number(data.frameHeight) + 37) + "px";
+  });
+})();
+</script>
+</body>
 </html>
