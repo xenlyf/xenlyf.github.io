@@ -1110,3 +1110,11 @@ html[data-theme="light"] body .falling-cat { color: #18181b; }
 .custom-move-list button.active { background:var(--glass-border); font-weight:700; }
 .custom-chess-note { color:var(--muted); font-size:12px; line-height:1.6; margin:12px 0 8px; }
 @media(max-width:420px){.custom-move-list{grid-template-columns:repeat(2,minmax(0,1fr))}.custom-square .coord{font-size:8px}}
+
+/* Ensure replay pieces use theme-controlled colors rather than mixed Unicode glyph fills. */
+.custom-square.piece-white { color:#fff !important; -webkit-text-stroke: .7px #25252a; text-shadow: 0 1px 1px rgba(0,0,0,.4); }
+.custom-square.piece-black { color:#202024 !important; -webkit-text-stroke: .35px #f4f2ee; text-shadow:none; }
+.custom-square.light.piece-white { background:#e8e7e4; }
+.custom-square.dark.piece-white { background:#66666c; }
+.custom-square.light.piece-black { background:#e8e7e4; }
+.custom-square.dark.piece-black { background:#66666c; }

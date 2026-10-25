@@ -366,7 +366,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const turnEl = root.querySelector("[data-turn-label]");
   const plyEl = root.querySelector("[data-ply-label]");
   let index = 0;
-  const symbols = { w:{k:"♔",q:"♕",r:"♖",b:"♗",n:"♘",p:"♙"}, b:{k:"♚",q:"♛",r:"♜",b:"♝",n:"♞",p:"♟"} };
+  const symbols = { w:{k:"♔",q:"♕",r:"♖",b:"♗",n:"♘",p:"♙"}, b:{k:"♔",q:"♕",r:"♖",b:"♗",n:"♘",p:"♙"} };
   const positions = [new Chess()];
   history.forEach(m => { const next = new Chess(positions[positions.length-1].fen()); next.move(m); positions.push(next); });
   function render() {
@@ -379,7 +379,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const el = document.createElement("div");
       el.className = "custom-square "+(((r+c)%2===0)?"light":"dark");
       if (last && (sq===last.from || sq===last.to)) el.classList.add("last-move");
-      if (piece) { el.textContent = symbols[piece.color][piece.type]; el.setAttribute("aria-label",piece.color==="w"?"White "+piece.type:"Black "+piece.type); }
+      if (piece) { el.textContent = symbols[piece.color][piece.type]; el.classList.add(piece.color==="w"?"piece-white":"piece-black"); el.setAttribute("aria-label",piece.color==="w"?"White "+piece.type:"Black "+piece.type); }
       if (c===0) { const coord=document.createElement("span"); coord.className="coord"; coord.textContent=8-r; el.appendChild(coord); }
       if (r===7) { const coord=document.createElement("span"); coord.className="coord"; coord.style.left="auto"; coord.style.right="3px"; coord.style.top="auto"; coord.style.bottom="2px"; coord.textContent=String.fromCharCode(97+c); el.appendChild(coord); }
       boardEl.appendChild(el);
