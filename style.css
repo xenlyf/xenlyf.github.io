@@ -1118,3 +1118,8 @@ html[data-theme="light"] body .falling-cat { color: #18181b; }
 .custom-square.dark.piece-white { background:#66666c; }
 .custom-square.light.piece-black { background:#e8e7e4; }
 .custom-square.dark.piece-black { background:#66666c; }
+
+/* Normalize Unicode glyph fills: filter only the piece, never its square. */
+.custom-square .piece-glyph { display:block; font-family:"DejaVu Sans","Segoe UI Symbol","Noto Sans Symbols 2",serif; line-height:1; }
+.custom-square .piece-glyph.piece-black { color:#202024; filter:brightness(0) saturate(100%); -webkit-text-stroke:0; text-shadow:none; }
+.custom-square .piece-glyph.piece-white { color:#fff; filter:brightness(0) invert(1); -webkit-text-stroke:0; text-shadow:0 1px 1px rgba(0,0,0,.25); }
