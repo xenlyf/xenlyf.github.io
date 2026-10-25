@@ -366,7 +366,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const turnEl = root.querySelector("[data-turn-label]");
   const plyEl = root.querySelector("[data-ply-label]");
   let index = 0;
-  const symbols = { w:{k:"♔",q:"♕",r:"♖",b:"♗",n:"♘",p:"♙"}, b:{k:"♔",q:"♕",r:"♖",b:"♗",n:"♘",p:"♙"} };
+  const pieceSvg = {
+    p:'<circle cx="50" cy="23" r="13"/><path d="M35 43 Q30 50 34 58 L25 78 Q22 83 30 84 H70 Q78 83 75 78 L66 58 Q70 50 65 43 Z"/><path d="M25 88 H75 V94 H25 Z"/>',
+    r:'<path d="M20 12 H34 V25 H43 V12 H57 V25 H66 V12 H80 V39 H70 L75 76 H25 L30 39 H20 Z"/><path d="M22 81 H78 V91 H22 Z"/>',
+    n:'<path d="M25 83 Q20 72 30 60 L38 47 L31 28 Q28 20 36 16 L47 25 L57 19 Q72 24 77 42 L72 58 L80 78 Q81 84 72 84 H28 Z"/><circle cx="57" cy="33" r="3" class="eye"/>',
+    b:'<path d="M50 10 Q70 22 59 38 Q52 47 63 55 L73 78 H27 L37 55 Q48 47 41 38 Q30 22 50 10 Z"/><path d="M42 24 L58 40" fill="none" stroke="var(--piece-cut)" stroke-width="5"/><path d="M23 82 H77 V91 H23 Z"/>',
+    q:'<path d="M18 24 L31 39 L42 19 L50 37 L59 19 L70 39 L82 24 L74 72 H26 Z"/><circle cx="18" cy="19" r="6"/><circle cx="42" cy="13" r="6"/><circle cx="59" cy="13" r="6"/><circle cx="82" cy="19" r="6"/><path d="M24 77 H76 V86 H24 Z M20 90 H80 V96 H20 Z"/>',
+    k:'<path d="M44 8 H56 V24 H72 V36 H56 V47 Q68 54 70 67 L76 79 H24 L30 67 Q32 54 44 47 V36 H28 V24 H44 Z"/><path d="M21 83 H79 V92 H21 Z"/>'
+  };
   const positions = [new Chess()];
   history.forEach(m => { const next = new Chess(positions[positions.length-1].fen()); next.move(m); positions.push(next); });
   function render() {
@@ -379,7 +386,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const el = document.createElement("div");
       el.className = "custom-square "+(((r+c)%2===0)?"light":"dark");
       if (last && (sq===last.from || sq===last.to)) el.classList.add("last-move");
-      if (piece) { const glyph = document.createElement("span"); glyph.className = "piece-glyph " + (piece.color==="w"?"piece-white":"piece-black"); glyph.textContent = symbols[piece.color][piece.type]; el.appendChild(glyph); el.setAttribute("aria-label",piece.color==="w"?"White "+piece.type:"Black "+piece.type); }
+      if (piece) { const glyph = document.createElementNS("http://www.w3.org/2000/svg","svg"); glyph.setAttribute("viewBox","0 0 100 100"); glyph.setAttribute("aria-hidden","true"); glyph.classList.add("piece-svg",piece.color==="w"?"piece-white":"piece-black"); const path = document.createElementNS("http://www.w3.org/2000/svg","g"); path.innerHTML = pieceSvg[piece.type]; glyph.appendChild(path); el.appendChild(glyph); el.setAttribute("aria-label",piece.color==="w"?"White "+piece.type:"Black "+piece.type); }
       if (c===0) { const coord=document.createElement("span"); coord.className="coord"; coord.textContent=8-r; el.appendChild(coord); }
       if (r===7) { const coord=document.createElement("span"); coord.className="coord"; coord.style.left="auto"; coord.style.right="3px"; coord.style.top="auto"; coord.style.bottom="2px"; coord.textContent=String.fromCharCode(97+c); el.appendChild(coord); }
       boardEl.appendChild(el);

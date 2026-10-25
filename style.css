@@ -1123,3 +1123,11 @@ html[data-theme="light"] body .falling-cat { color: #18181b; }
 .custom-square .piece-glyph { display:block; font-family:"DejaVu Sans","Segoe UI Symbol","Noto Sans Symbols 2",serif; line-height:1; }
 .custom-square .piece-glyph.piece-black { color:#202024; filter:brightness(0) saturate(100%); -webkit-text-stroke:0; text-shadow:none; }
 .custom-square .piece-glyph.piece-white { color:#fff; filter:brightness(0) invert(1); -webkit-text-stroke:0; text-shadow:0 1px 1px rgba(0,0,0,.25); }
+
+/* Filled, consistent SVG chess silhouettes */
+.custom-square .piece-svg { display:block; width:82%; height:82%; overflow:visible; }
+.custom-square .piece-svg.piece-black { color:#17171a; --piece-cut:#e8e7e4; }
+.custom-square .piece-svg.piece-white { color:#fff; --piece-cut:#66666c; }
+.custom-square .piece-svg g { fill:currentColor; stroke:currentColor; stroke-width:2; stroke-linejoin:round; }
+.custom-square .piece-svg .eye { fill:var(--piece-cut); stroke:none; }
+.custom-square .piece-svg path[fill="none"] { fill:none; }
