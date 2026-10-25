@@ -339,3 +339,64 @@ window.addEventListener("DOMContentLoaded", () => {
   }
   document.body.appendChild(layer);
 });
+
+// Xenlyf replay for Meowsarus vs ChessSharkz (PGN supplied by the site owner).
+document.addEventListener("DOMContentLoaded", () => {
+  const root = document.querySelector("[data-custom-chess]");
+  if (!root || typeof Chess === "undefined") return;
+  const pgn = `[Event "Live Chess"]
+[Site "Chess.com"]
+[Date "2026.01.31"]
+[Round "?"]
+[White "Meowsarus"]
+[Black "ChessSharkz"]
+[Result "0-1"]
+[TimeControl "180"]
+[WhiteElo "798"]
+[BlackElo "3048"]
+[Termination "ChessSharkz won by resignation"]
+[ECO "B21"]
+
+1. e4 c5 2. d4 cxd4 3. Qxd4 Nc6 4. Qd1 Nf6 5. Nc3 e6 6. Bb5 Bb4 7. Bxc6 bxc6 8. Bd2 d5 9. e5 Bxc3 10. Bxc3 Ne4 11. Nf3 Nxc3 12. bxc3 Qa5 13. Qd2 Ba6 14. Nd4 Qc5 15. f3 O-O 16. Kf2 Rab8 17. Rab1 Bc4 18. Rxb8 Rxb8 19. a3 Qxa3 20. Nxc6 Qc5+ 21. Nd4 a5 22. Ra1 Ra8 23. Qc1 f6 24. Qa3 Qxa3 25. Rxa3 Kf7 26. Nc6 a4 27. Nd8+ Rxd8 0-1`;
+  const game = new Chess();
+  game.load_pgn(pgn);
+  const history = game.history({ verbose: true });
+  const boardEl = root.querySelector("[data-chess-board]");
+  const movesEl = root.querySelector("[data-move-list]");
+  const turnEl = root.querySelector("[data-turn-label]");
+  const plyEl = root.querySelector("[data-ply-label]");
+  let index = 0;
+  const symbols = { w:{k:"♔",q:"♕",r:"♖",b:"♗",n:"♘",p:"♙"}, b:{k:"♚",q:"♛",r:"♜",b:"♝",n:"♞",p:"♟"} };
+  const positions = [new Chess()];
+  history.forEach(m => { const next = new Chess(positions[positions.length-1].fen()); next.move(m); positions.push(next); });
+  function render() {
+    const position = positions[index];
+    const matrix = position.board();
+    const last = index ? history[index-1] : null;
+    boardEl.innerHTML = "";
+    matrix.forEach((row, r) => row.forEach((piece, c) => {
+      const sq = String.fromCharCode(97+c)+(8-r);
+      const el = document.createElement("div");
+      el.className = "custom-square "+(((r+c)%2===0)?"light":"dark");
+      if (last && (sq===last.from || sq===last.to)) el.classList.add("last-move");
+      if (piece) { el.textContent = symbols[piece.color][piece.type]; el.setAttribute("aria-label",piece.color==="w"?"White "+piece.type:"Black "+piece.type); }
+      if (c===0) { const coord=document.createElement("span"); coord.className="coord"; coord.textContent=8-r; el.appendChild(coord); }
+      if (r===7) { const coord=document.createElement("span"); coord.className="coord"; coord.style.left="auto"; coord.style.right="3px"; coord.style.top="auto"; coord.style.bottom="2px"; coord.textContent=String.fromCharCode(97+c); el.appendChild(coord); }
+      boardEl.appendChild(el);
+    }));
+    turnEl.textContent = index===0 ? "Starting position" : (index===history.length ? "Final position · 0–1" : (index%2===1 ? "Black to move" : "White to move"));
+    plyEl.textContent = `Ply ${index} / ${history.length}`;
+    [...movesEl.querySelectorAll("button")].forEach(b=>b.classList.toggle("active",Number(b.dataset.ply)===index));
+  }
+  history.forEach((m,i)=>{
+    const b=document.createElement("button"); b.type="button"; b.dataset.ply=String(i+1);
+    b.textContent = `${Math.floor(i/2)+1}${i%2===0?".":"..."} ${m.san}`;
+    b.addEventListener("click",()=>{index=i+1;render();});
+    movesEl.appendChild(b);
+  });
+  root.querySelector('[data-replay="start"]').addEventListener("click",()=>{index=0;render();});
+  root.querySelector('[data-replay="prev"]').addEventListener("click",()=>{index=Math.max(0,index-1);render();});
+  root.querySelector('[data-replay="next"]').addEventListener("click",()=>{index=Math.min(history.length,index+1);render();});
+  root.querySelector('[data-replay="end"]').addEventListener("click",()=>{index=history.length;render();});
+  render();
+});
